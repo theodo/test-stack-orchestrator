@@ -1,0 +1,3 @@
+export const MAX_LAMBDA_TIMEOUT = 900; // 15 min
+const API_GATEWAY_TIMEOUT = 30;
+export const MAX_HTTP_LAMBDA_TIMEOUT = API_GATEWAY_TIMEOUT - 1;

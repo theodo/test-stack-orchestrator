@@ -1,0 +1,303 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": ["s3:CreateBucket", "s3:ListAllMyBuckets", "s3:GetBucketLocation"],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:DeleteBucket",
+        "s3:DeleteBucketPolicy",
+        "s3:GetObject",
+        "s3:GetEncryptionConfiguration",
+        "s3:PutBucketPolicy",
+        "s3:PutEncryptionConfiguration",
+        "s3:PutBucketCORS",
+        "s3:PutBucketNotification",
+        "s3:GetBucketNotification",
+        "s3:PutLifecycleConfiguration"
+      ],
+      "Resource": ["arn:aws:s3:::canopia*"]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "logs:CreateLogDelivery",
+        "logs:GetLogDelivery",
+        "logs:ListLogDeliveries",
+        "logs:UpdateLogDelivery",
+        "logs:DeleteLogDelivery",
+        "logs:CreateLogGroup",
+        "logs:DescribeLogGroups",
+        "logs:DeleteLogGroup",
+        "logs:CreateLogStream",
+        "logs:DescribeLogStreams",
+        "logs:PutResourcePolicy",
+        "logs:DescribeResourcePolicies",
+        "logs:GetLogEvents",
+        "logs:FilterLogEvents"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "iam:GetRole",
+        "iam:GetRolePolicy",
+        "iam:CreateRole",
+        "iam:PutRolePolicy",
+        "iam:DeleteRolePolicy",
+        "iam:DeleteRole",
+        "iam:AttachRolePolicy",
+        "iam:DetachRolePolicy"
+      ],
+      "Resource": ["arn:aws:iam::*:role/canopia-*"]
+    },
+    {
+      "Effect": "Allow",
+      "Action": ["iam:PassRole", "iam:CreateServiceLinkedRole", "iam:DeleteServiceLinkedRole"],
+      "Resource": "arn:aws:iam::*:role/*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": ["iam:GetGroup", "iam:CreateGroup", "iam:PutGroupPolicy"],
+      "Resource": "arn:aws:iam::*:group/canopia-*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": ["iam:ListAttachedRolePolicies", "iam:CreateRole", "iam:AttachRolePolicy"],
+      "Resource": "arn:aws:iam::*:role/serverlessApiGatewayCloudWatchRole"
+    },
+    {
+      "Effect": "Allow",
+      "Action": ["ssm:PutParameter", "ssm:AddTagsToResource", "ssm:DeleteParameter"],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "lambda:CreateEventSourceMapping",
+        "lambda:CreateFunction",
+        "lambda:Get*",
+        "lambda:List*"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "lambda:AddPermission",
+        "lambda:CreateAlias",
+        "lambda:DeleteEventSourceMapping",
+        "lambda:DeleteFunction",
+        "lambda:InvokeFunction",
+        "lambda:PublishVersion",
+        "lambda:RemovePermission",
+        "lambda:Update*",
+        "lambda:PutFunctionConcurrency",
+        "lambda:ListTags",
+        "lambda:TagResource",
+        "lambda:UntagResource"
+      ],
+      "Resource": [
+        "arn:aws:lambda:eu-west-1:*:function:canopia-*",
+        "arn:aws:lambda:eu-west-1:*:event-source-mapping:*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "states:CreateStateMachine",
+        "states:DeleteStateMachine",
+        "states:UpdateStateMachine",
+        "states:TagResource"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "sqs:CreateQueue",
+        "sqs:DeleteQueue",
+        "sqs:GetQueueAttributes",
+        "sqs:SetQueueAttributes"
+      ],
+      "Resource": ["arn:aws:sqs:eu-west-1:*:canopia-*"]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "sns:CreateTopic",
+        "sns:DeleteTopic",
+        "sns:GetTopicAttributes",
+        "sns:Subscribe",
+        "sns:Unsubscribe"
+      ],
+      "Resource": ["arn:aws:sns:eu-west-1:*:canopia-*"]
+    },
+    {
+      "Effect": "Allow",
+      "Action": ["events:*"],
+      "Resource": [
+        "arn:aws:events:eu-west-1:*:rule/*",
+        "arn:aws:events:eu-west-1:*:event-bus/*",
+        "arn:aws:events:eu-west-1::event-source/*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "apigateway:GET",
+        "apigateway:POST",
+        "apigateway:PUT",
+        "apigateway:DELETE",
+        "apigateway:PATCH",
+        "apigateway:UpdateRestApiPolicy"
+      ],
+      "Resource": [
+        "arn:aws:apigateway:*::/account",
+        "arn:aws:apigateway:*::/restapis*",
+        "arn:aws:apigateway:*::/apikeys*",
+        "arn:aws:apigateway:*::/usageplans*",
+        "arn:aws:apigateway:*::/apis*",
+        "arn:aws:apigateway:*::/domainnames*",
+        "arn:aws:apigateway:*::/tags*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "cognito-idp:CreateUserPool",
+        "cognito-idp:CreateUserPoolDomain",
+        "cognito-idp:CreateIdentityProvider",
+        "cognito-idp:CreateUserPoolClient",
+        "cognito-idp:CreateGroup",
+        "cognito-idp:Delete*",
+        "cognito-idp:DescribeUserPool",
+        "cognito-idp:ListUserPools",
+        "cognito-idp:UpdateIdentityProvider",
+        "cognito-idp:UpdateUserPool",
+        "cognito-idp:UpdateUserPoolClient",
+        "cognito-idp:ListTagsForResource",
+        "cognito-idp:TagResource",
+        "cognito-idp:UntagResource",
+        "cognito-idp:SetUserPoolMfaConfig",
+        "cognito-idp:AddCustomAttributes"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": ["dynamodb:*"],
+      "Resource": ["arn:aws:dynamodb:*:*:table/*"]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "cloudfront:CreateDistribution",
+        "cloudfront:GetDistribution",
+        "cloudfront:UpdateDistribution",
+        "cloudfront:DeleteDistribution",
+        "cloudfront:CreateCloudFrontOriginAccessIdentity",
+        "cloudfront:GetCloudFrontOriginAccessIdentity",
+        "cloudfront:GetCloudFrontOriginAccessIdentityConfig",
+        "cloudfront:TagResource",
+        "cloudfront:ListTagsForResource",
+        "cloudfront:CreateFunction",
+        "cloudfront:DescribeFunction",
+        "cloudfront:PublishFunction",
+        "cloudfront:DeleteFunction"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "cloudwatch:GetDashboard",
+        "cloudwatch:PutDashboard",
+        "cloudwatch:DeleteDashboards"
+      ],
+      "Resource": ["arn:aws:cloudwatch::*:dashboard/canopia-*"]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "cloudwatch:PutMetricAlarm",
+        "cloudwatch:DeleteAlarms",
+        "cloudwatch:DescribeAlarms"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "kms:CreateKey",
+        "kms:TagResource",
+        "kms:ScheduleKeyDeletion",
+        "kms:PutKeyPolicy",
+        "kms:EnableKeyRotation"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "kms:CreateGrant",
+        "kms:GenerateDataKey",
+        "kms:Decrypt",
+        "kms:RetireGrant",
+        "kms:DescribeKey"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "backup:CreateBackupVault",
+        "backup:CreateBackupSelection",
+        "backup:CreateBackupPlan",
+        "backup:DeleteBackupVault",
+        "backup:DeleteBackupSelection",
+        "backup:DeleteBackupPlan",
+        "backup:UpdateBackupPlan",
+        "backup:TagResource"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "backup-storage:MountCapsule",
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "rds:*",
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "secretsmanager:CreateSecret",
+        "secretsmanager:DeleteSecret",
+        "secretsmanager:GetRandomPassword",
+        "secretsmanager:TagResource",
+        "secretsmanager:GetSecretValue"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "route53:*",
+
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "acm:*",
+      "Resource": "*"
+    }
+  ]
+}
