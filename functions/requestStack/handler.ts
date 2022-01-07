@@ -5,8 +5,9 @@ import { applyHttpMiddleware } from '@libs/middlewares';
 import type { CustomAPIGatewayProxyHandler } from '@libs/utils';
 import { success, throwIfNil } from '@libs/utils';
 
+const defaultBranch = 'main';
 const requestStack: CustomAPIGatewayProxyHandler<typeof requestStackInputSchema, unknown> = async ({
-  body: { branch },
+  body: { branch = defaultBranch } = { branch: defaultBranch },
 }) => {
   const { Items: stacks } = await Stack.query(Stack.name);
 

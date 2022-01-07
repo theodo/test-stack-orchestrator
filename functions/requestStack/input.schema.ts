@@ -6,8 +6,6 @@ export const requestStackInputSchema = {
       properties: {
         branch: { type: 'string' },
       },
-      required: ['branch'],
     },
   },
-  required: ['body'],
 } as const;
