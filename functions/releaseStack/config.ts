@@ -6,7 +6,7 @@ export default {
     {
       httpApi: {
         method: 'post',
-        path: '/releaseStack/{stackName}',
+        path: '/releaseStack',
       },
     },
   ],

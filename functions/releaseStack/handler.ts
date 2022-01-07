@@ -2,15 +2,17 @@ import { Stack } from '@libs/entities/stack';
 import { applyHttpMiddleware } from '@libs/middlewares';
 import type { CustomAPIGatewayProxyHandler } from '@libs/utils';
 import { success } from '@libs/utils';
+import { projectKeyAuthorizer } from '@libs/utils/http/projectKeyAuthorizer';
 
-import type { releaseStackInputSchema } from './input.schema';
+import { releaseStackInputSchema } from './input.schema';
 
 const requestStack: CustomAPIGatewayProxyHandler<typeof releaseStackInputSchema, unknown> = async ({
-  pathParameters: { stackName },
+  body: { stackName, projectKey },
 }) => {
-  await Stack.update({ stackName: stackName, isAvailable: true });
+  await projectKeyAuthorizer(projectKey);
+  await Stack.update({ projectKey, stackName: stackName, isAvailable: true });
 
   return success({ message: `Stack ${stackName} released` });
 };
 
-export const main = applyHttpMiddleware(requestStack);
+export const main = applyHttpMiddleware(requestStack, { inputSchema: releaseStackInputSchema });

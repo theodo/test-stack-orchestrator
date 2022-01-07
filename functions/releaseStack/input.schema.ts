@@ -1,13 +1,14 @@
 export const releaseStackInputSchema = {
   type: 'object',
   properties: {
-    pathParameters: {
+    body: {
       type: 'object',
       properties: {
+        projectKey: { type: 'string' },
         stackName: { type: 'string' },
       },
-      required: ['stackName'],
+      required: ['projectKey', 'stackName'],
     },
   },
-  required: ['pathParameters'],
+  required: ['body'],
 } as const;
