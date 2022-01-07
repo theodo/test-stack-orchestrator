@@ -23,7 +23,7 @@ const requestStack: CustomAPIGatewayProxyHandler<typeof requestStackInputSchema,
 
     return success({ stackName: availableStack.stackName });
   }
-  const newStackName = `test-N-${stacks.length + 1}`;
+  const newStackName = `test-${stacks.length + 1}`;
   await Stack.put({ stackName: newStackName, isAvailable: false, branch });
 
   return success({ stackName: newStackName });
