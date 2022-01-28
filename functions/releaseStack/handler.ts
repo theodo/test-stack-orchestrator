@@ -7,7 +7,8 @@ import { projectKeyAuthorizer } from '@libs/utils/http/projectKeyAuthorizer';
 import { releaseStackInputSchema } from './input.schema';
 
 const requestStack: CustomAPIGatewayProxyHandler<typeof releaseStackInputSchema, unknown> = async ({
-  body: { stackName, projectKey },
+  body: { stackName },
+  headers: { 'x-api-key': projectKey },
 }) => {
   await projectKeyAuthorizer(projectKey);
   await Stack.update({ projectKey, stackName: stackName, isAvailable: true });

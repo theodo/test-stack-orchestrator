@@ -5,10 +5,15 @@ export const requestStackInputSchema = {
       type: 'object',
       properties: {
         branch: { type: 'string' },
-        projectKey: { type: 'string' },
       },
-      required: ['projectKey'],
+    },
+    headers: {
+      type: 'object',
+      properties: {
+        'x-api-key': { type: 'string' },
+      },
+      required: ['x-api-key'],
     },
   },
-  required: ['body'],
+  required: ['headers'],
 } as const;

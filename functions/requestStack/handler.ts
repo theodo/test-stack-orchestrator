@@ -9,7 +9,8 @@ import { projectKeyAuthorizer } from '@libs/utils/http/projectKeyAuthorizer';
 
 const defaultBranch = 'main';
 const requestStack: CustomAPIGatewayProxyHandler<typeof requestStackInputSchema, unknown> = async ({
-  body: { projectKey, branch = defaultBranch },
+  body: { branch = defaultBranch } = { branch: defaultBranch },
+  headers: { 'x-api-key': projectKey },
 }) => {
   await projectKeyAuthorizer(projectKey);
 

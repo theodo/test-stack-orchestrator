@@ -6,7 +6,7 @@ export default {
     {
       httpApi: {
         method: 'get',
-        path: '/listStacks/{projectKey}',
+        path: '/listStacks',
       },
     },
   ],

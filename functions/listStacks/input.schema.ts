@@ -1,13 +1,13 @@
 export const listStacksInputSchema = {
   type: 'object',
   properties: {
-    pathParameters: {
+    headers: {
       type: 'object',
       properties: {
-        projectKey: { type: 'string' },
+        'x-api-key': { type: 'string' },
       },
-      required: ['projectKey'],
+      required: ['x-api-key'],
     },
   },
-  required: ['pathParameters'],
+  required: ['headers'],
 } as const;

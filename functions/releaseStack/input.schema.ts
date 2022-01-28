@@ -4,11 +4,17 @@ export const releaseStackInputSchema = {
     body: {
       type: 'object',
       properties: {
-        projectKey: { type: 'string' },
         stackName: { type: 'string' },
       },
-      required: ['projectKey', 'stackName'],
+      required: ['stackName'],
+    },
+    headers: {
+      type: 'object',
+      properties: {
+        'x-api-key': { type: 'string' },
+      },
+      required: ['x-api-key'],
     },
   },
-  required: ['body'],
+  required: ['body', 'headers'],
 } as const;
