@@ -47,6 +47,7 @@ const serverlessConfiguration: AWS = {
   custom: {
     esbuild: esbuildConfig,
   },
+  // @ts-expect-error types are wrong https://github.com/serverless/typescript/issues/27
   resources,
 };
 
