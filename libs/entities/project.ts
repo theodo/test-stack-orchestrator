@@ -9,6 +9,7 @@ export const Project = new Entity({
     modelName: { partitionKey: true, hidden: true, default: 'Project' },
     projectKey: { type: 'string', sortKey: true },
     projectName: { type: 'string', required: true },
+    prefix: { type: 'string' },
   },
   table: LockTable,
 } as const);

@@ -1,5 +1,6 @@
 import { getAvailableStack } from '@functions/requestStack/getAvailableStack';
 import { requestStackInputSchema } from '@functions/requestStack/input.schema';
+import { Project } from '@libs/entities/project';
 import { Stack } from '@libs/entities/stack';
 import { applyHttpMiddleware } from '@libs/middlewares';
 import type { CustomAPIGatewayProxyHandler } from '@libs/utils';
@@ -26,7 +27,12 @@ const requestStack: CustomAPIGatewayProxyHandler<typeof requestStackInputSchema,
 
     return success({ stackName: availableStack.stackName });
   }
-  const newStackName = `test-${stacks.length + 1}`;
+
+  const { Item: project } = await Project.get({ projectKey });
+  throwIfNil(project);
+
+  const prefix = project.prefix ?? 'test-';
+  const newStackName = `${prefix}${stacks.length + 1}`;
   await Stack.put({ projectKey, stackName: newStackName, isAvailable: false, branch });
 
   return success({ stackName: newStackName });
