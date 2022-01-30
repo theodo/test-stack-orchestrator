@@ -6,6 +6,7 @@ import jsonValidator from '@middy/validator';
 import type { Handler } from 'aws-lambda';
 
 import { bodyStringifyer } from './bodyStringifyer';
+import { exposeValidationError } from './exposeValidationError';
 import { mockLogger } from './mockLogger';
 import { useSsmMiddleware } from './ssm';
 
@@ -40,6 +41,7 @@ export const applyHttpMiddleware = <T, R extends Record<string, unknown>>(
     useSsmMiddleware(middyfiedHandler, ssmParams);
   }
 
+  middyfiedHandler.use(exposeValidationError());
   middyfiedHandler.use(httpErrorHandler());
 
   return middyfiedHandler;
