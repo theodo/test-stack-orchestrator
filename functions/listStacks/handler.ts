@@ -1,3 +1,5 @@
+import omit from 'lodash/omit';
+
 import { listStacksInputSchema } from '@functions/listStacks/input.schema';
 import { Stack } from '@libs/entities/stack';
 import { applyHttpMiddleware } from '@libs/middlewares';
@@ -14,7 +16,7 @@ const listStacks: CustomAPIGatewayProxyHandler<typeof listStacksInputSchema, unk
 
   throwIfNil(stacks, 'stacks must exist');
 
-  return success({ stacks: stacks });
+  return success({ stacks: stacks.map(stack => omit(stack, 'projectKey')) });
 };
 
 export const main = applyHttpMiddleware(listStacks, { inputSchema: listStacksInputSchema });
