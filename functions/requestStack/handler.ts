@@ -15,28 +15,29 @@ const requestStack: CustomAPIGatewayProxyHandler<typeof requestStackInputSchema,
   await projectKeyAuthorizer(projectKey);
 
   const { Items: stacks } = await Stack.query(Stack.name, { beginsWith: projectKey });
+  const { Item: project } = await Project.get({ projectKey });
 
   throwIfNil(stacks, 'stacks must exist');
+  throwIfNil(project);
+
+  const { initialCommit, prefix = 'test-' } = project;
 
   const availableStack = getAvailableStack(stacks, branch);
 
   if (availableStack !== undefined) {
+    const { stackName, lastDeployedCommit = initialCommit } = availableStack;
     await Stack.update(
-      { projectKey, stackName: availableStack.stackName, isAvailable: false, branch },
+      { projectKey, stackName, isAvailable: false, branch },
       { conditions: { attr: 'isAvailable', eq: true } },
     );
 
-    return success({ stackName: availableStack.stackName });
+    return success({ stackName, lastDeployedCommit });
   }
 
-  const { Item: project } = await Project.get({ projectKey });
-  throwIfNil(project);
-
-  const prefix = project.prefix ?? 'test-';
   const newStackName = `${prefix}${stacks.length + 1}`;
   await Stack.put({ projectKey, stackName: newStackName, isAvailable: false, branch });
 
-  return success({ stackName: newStackName });
+  return success({ stackName: newStackName, lastDeployedCommit: initialCommit });
 };
 
 export const main = applyHttpMiddleware(requestStack, { inputSchema: requestStackInputSchema });

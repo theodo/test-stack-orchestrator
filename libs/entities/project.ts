@@ -10,6 +10,7 @@ export const Project = new Entity({
     projectKey: { type: 'string', sortKey: true },
     projectName: { type: 'string', required: true },
     prefix: { type: 'string' },
+    initialCommit: { type: 'string' },
   },
   table: LockTable,
 } as const);

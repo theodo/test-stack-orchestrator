@@ -12,6 +12,7 @@ export const Stack = new Entity({
     stackName: ['SK', 1, { type: 'string', required: true }],
     isAvailable: { type: 'boolean', required: true },
     branch: { type: 'string', required: true },
+    lastDeployedCommit: { type: 'string' },
   },
   table: LockTable,
 } as const);
