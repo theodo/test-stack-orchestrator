@@ -19,13 +19,17 @@ Most of the ressources created will be marked with the `stackName`.
 
 ### Request stack
 
-Gets an available stack, locks it and return its stack name.
+Gets an available stack, locks it and return its stack name and last deployed commit.
 
 The returned stack is
 
 1. one of the same branch if it exists and is available
 2. the older stack available (based on the last requested date)
 3. a new stack. The new stack name is `` `${prefix}${stacks.length + 1}` ``. Default prefix is `test-`
+
+### Set last deployed commit
+
+Save the last deployed commit of the stack.
 
 ### Release stack
 
@@ -38,6 +42,7 @@ Return the list of the stacks of the project.
 ```ts
 type Stacks = {
   stackName: string; // ex: "test-1"
+  lastDeployedCommit: string;
   isAvailable: boolean;
   branch: string;    // ex: "main"
   created: string;   // iso date, ex "2022-03-04T14:19:54.448Z"
