@@ -11,7 +11,10 @@ const setLastDeployedCommit: CustomAPIGatewayProxyHandler<
   unknown
 > = async ({ body: { stackName, lastDeployedCommit }, headers: { 'x-api-key': projectKey } }) => {
   await projectKeyAuthorizer(projectKey);
-  await Stack.update({ projectKey, stackName, lastDeployedCommit });
+  await Stack.update(
+    { projectKey, stackName, lastDeployedCommit },
+    { conditions: { attr: 'stackName', exists: true } },
+  );
 
   return success({ message: `Last commit of stack ${stackName} updated` });
 };

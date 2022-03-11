@@ -6,14 +6,17 @@ import { projectKeyAuthorizer } from '@libs/utils/http/projectKeyAuthorizer';
 
 import { releaseStackInputSchema } from './input.schema';
 
-const requestStack: CustomAPIGatewayProxyHandler<typeof releaseStackInputSchema, unknown> = async ({
+const releaseStack: CustomAPIGatewayProxyHandler<typeof releaseStackInputSchema, unknown> = async ({
   body: { stackName },
   headers: { 'x-api-key': projectKey },
 }) => {
   await projectKeyAuthorizer(projectKey);
-  await Stack.update({ projectKey, stackName: stackName, isAvailable: true });
+  await Stack.update(
+    { projectKey, stackName, isAvailable: true },
+    { conditions: { attr: 'stackName', exists: true } },
+  );
 
   return success({ message: `Stack ${stackName} released` });
 };
 
-export const main = applyHttpMiddleware(requestStack, { inputSchema: releaseStackInputSchema });
+export const main = applyHttpMiddleware(releaseStack, { inputSchema: releaseStackInputSchema });
