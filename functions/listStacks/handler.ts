@@ -10,6 +10,8 @@ import { projectKeyAuthorizer } from '@libs/utils/http/projectKeyAuthorizer';
 
 const listStacks: CustomAPIGatewayProxyHandler<typeof listStacksInputSchema, unknown> = async ({
   headers: { 'x-api-key': projectKey },
+}: {
+  headers: { 'x-api-key': string };
 }) => {
   await projectKeyAuthorizer(projectKey);
 

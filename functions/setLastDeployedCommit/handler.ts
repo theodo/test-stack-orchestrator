@@ -9,7 +9,16 @@ import { setLastDeployedCommitInputSchema } from './input.schema';
 const setLastDeployedCommit: CustomAPIGatewayProxyHandler<
   typeof setLastDeployedCommitInputSchema,
   unknown
-> = async ({ body: { stackName, lastDeployedCommit }, headers: { 'x-api-key': projectKey } }) => {
+> = async ({
+  body: { stackName, lastDeployedCommit },
+  headers: { 'x-api-key': projectKey },
+}: {
+  body: {
+    stackName: string;
+    lastDeployedCommit: string;
+  };
+  headers: { 'x-api-key': string };
+}) => {
   await projectKeyAuthorizer(projectKey);
   await Stack.update(
     { projectKey, stackName, lastDeployedCommit },
