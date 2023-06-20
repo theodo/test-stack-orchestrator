@@ -11,6 +11,9 @@ const defaultBranch = 'main';
 const requestStack: CustomAPIGatewayProxyHandler<typeof requestStackInputSchema, unknown> = async ({
   body: { branch = defaultBranch } = { branch: defaultBranch },
   headers: { 'x-api-key': projectKey },
+}: {
+  body?: { branch?: string } | undefined;
+  headers: { 'x-api-key': string };
 }) => {
   await projectKeyAuthorizer(projectKey);
 

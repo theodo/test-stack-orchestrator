@@ -9,7 +9,7 @@ import { releaseStackInputSchema } from './input.schema';
 const deleteLastStack: CustomAPIGatewayProxyHandler<
   typeof releaseStackInputSchema,
   unknown
-> = async ({ headers: { 'x-api-key': projectKey } }) => {
+> = async ({ headers: { 'x-api-key': projectKey } }: { headers: { 'x-api-key': string } }) => {
   await projectKeyAuthorizer(projectKey);
   const { Items: stacks } = await Stack.query(Stack.name, { beginsWith: projectKey });
   if (stacks === undefined || stacks.length === 0) {
