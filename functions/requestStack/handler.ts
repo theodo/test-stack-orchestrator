@@ -4,7 +4,7 @@ import { Project } from '@libs/entities/project';
 import { Stack } from '@libs/entities/stack';
 import { applyHttpMiddleware } from '@libs/middlewares';
 import type { CustomAPIGatewayProxyHandler } from '@libs/utils';
-import { success, throwIfNil } from '@libs/utils';
+import { DEFAULT_STACK_PREFIX, success, throwIfNil } from '@libs/utils';
 import { projectKeyAuthorizer } from '@libs/utils/http/projectKeyAuthorizer';
 
 const defaultBranch = 'main';
@@ -20,7 +20,7 @@ const requestStack: CustomAPIGatewayProxyHandler<typeof requestStackInputSchema,
   throwIfNil(stacks, 'stacks must exist');
   throwIfNil(project);
 
-  const { initialCommit, prefix = 'test-' } = project;
+  const { initialCommit, prefix = DEFAULT_STACK_PREFIX } = project;
 
   const availableStack = getAvailableStack(stacks, branch);
 
